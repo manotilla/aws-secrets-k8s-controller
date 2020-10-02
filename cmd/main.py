@@ -1,6 +1,7 @@
 
 from kubernetes import client, config, watch
-CRD_DOMAIN = "woodprogrammer.cloudops.local"
+import os
+CRD_DOMAIN = "woodprogrammer.io"
 
 if __name__ == "__main__":
 
@@ -18,8 +19,19 @@ if __name__ == "__main__":
     while True:
         resource_version = ''
         stream = watch.Watch().stream(crds.list_cluster_custom_object, CRD_DOMAIN, "v1", "cloudsecrets", resource_version=resource_version)
+        print("Basladik aq")
         for event in stream:
             obj = event["object"]
             operation = event['type']
             spec = obj.get("spec")
-            print(spec)
+
+            if operation == "DELETED":
+                print("K8S Secret {} deleting".format(event))
+            
+            elif operation == "ADDED":
+                try:            
+                    type_of_k8s_secret = spec["type"]
+                    prefix_of_k8s_secret = spec["prefix"]
+                    print(type_of_k8s_secret)
+                except Exception as exp:
+                    print(exp)

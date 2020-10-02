@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-ssm-controller
+  labels:
+    app: aws-ssm-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aws-ssm-controller
+  template:
+    metadata:
+      labels:
+        app: aws-ssm-controller
+    spec:
+      serviceAccount: cloud-secrets
+      containers:
+      - name: aws-ssm-controller
+        image: emirozbir/aws-ssm-controller:latest
