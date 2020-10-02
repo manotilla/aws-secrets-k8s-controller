@@ -1,8 +1,8 @@
-
+import os
 from kubernetes import client, config, watch
 CRD_DOMAIN = "woodprogrammer.cloudops.local"
 
-class KubernetesSecrets(object):
+class KubernetesSecrets:
 
     def __init__(self):
         if 'KUBERNETES_PORT' in os.environ:

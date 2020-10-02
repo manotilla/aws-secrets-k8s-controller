@@ -1,6 +1,7 @@
+import os
 
 from kubernetes import client, config, watch
-import os
+
 CRD_DOMAIN = "woodprogrammer.io"
 
 if __name__ == "__main__":

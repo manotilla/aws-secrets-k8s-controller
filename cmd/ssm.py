@@ -1,6 +1,7 @@
 import boto3
 
-class SSM(object):
+
+class SSM:
     def __init__(self):
         self.ssm_client = boto3.client('ssm')
 

@@ -1,4 +1,4 @@
-class Converter(object):
+class Converter:
 
     def __init__(self):
         pass
