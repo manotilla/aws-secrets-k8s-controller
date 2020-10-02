@@ -1,7 +1,6 @@
 import boto3
 
-
-class SSM:
+class AWSSecret(object):
     def __init__(self):
         self.ssm_client = boto3.client('ssm')
 
@@ -10,8 +9,11 @@ class SSM:
         data = self.ssm_client.get_parameter(Name=parameter_name, WithDecryption=True)
         return data["Parameter"]["Value"]
 
-    def by_path(self, parameter_prefix):
+    def convert(self, parameter_prefix, secret_name, splitter):
         
+        file_name = "/tmp/"+secret_name+".yaml"
+        file_ptr = open(file_name, "a+")
+
         paginator = self.ssm_client.get_paginator('describe_parameters')
 
         recursive_ssm = paginator.paginate(
@@ -22,3 +24,14 @@ class SSM:
         for rs in recursive_ssm:
             for parameter in rs['Parameters']:
                 value = self._single_parameter(parameter["Name"])
+                key = parameter["Name"].split(splitter)
+                file_ptr.write("{}: {}\n".format(key[len(key)-1], value))
+        
+        file_ptr.close()
+
+        return file_name
+
+'''
+obj = AWSSecret()
+obj.insert_tmp_file("/dev/", "/")           
+'''     
