@@ -1,6 +1,9 @@
 import os
 from kubernetes import client, config, watch
+
+
 CRD_DOMAIN = "woodprogrammer.cloudops.local"
+
 
 class KubernetesSecrets:
 
@@ -14,4 +17,5 @@ class KubernetesSecrets:
         configuration.assert_hostname = False
         api_client = client.api_client.ApiClient(configuration=configuration)
 
-    def createKubernetesSecrets(self, is_file):
+    def create_kubernetes_secrets(self, is_file):
+        pass
