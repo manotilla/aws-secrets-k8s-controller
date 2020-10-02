@@ -1,8 +1,9 @@
-
+import os
 from kubernetes import client, config, watch
 import os
 from zapata import Zapata
 from ssm import AWSSecret
+
 CRD_DOMAIN = "woodprogrammer.io"
 
 if __name__ == "__main__":
