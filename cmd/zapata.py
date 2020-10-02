@@ -40,7 +40,7 @@ class Zapata(object):
         for item, doc in tmp_yaml.items():
             tmp_encode = base64.b64encode(str.encode(doc))
             tmp_arr[item] = tmp_encode.decode()
-
+            
         secret = client.V1Secret(
             api_version="v1",
             data=tmp_arr,
@@ -53,4 +53,6 @@ class Zapata(object):
         tmp_content.close()
         tmp_arr = {}
         return response
+
+
 

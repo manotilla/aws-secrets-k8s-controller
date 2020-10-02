@@ -17,6 +17,7 @@ if __name__ == "__main__":
     api_client = client.api_client.ApiClient(configuration=configuration)
     v1 = client.ApiextensionsV1beta1Api(api_client)
     crds = client.CustomObjectsApi(api_client)
+
     aws_obj = AWSSecret()
     k8s_obj = Zapata()
 
@@ -40,11 +41,11 @@ if __name__ == "__main__":
                     namespace = spec["namespace"]
                     prefix_of_k8s_secret = spec["prefix"]
                     secret_name   = spec["secret_name"]
-                    mount_file_name = spec["mount_file_name"]
 
                     resp = aws_obj.convert(prefix_of_k8s_secret, secret_name, "/")
 
                     if type_of_k8s_secret == "file":    
+                        mount_file_name = spec["mount_file_name"]
                         k8s_obj.create_secret_as_file(mount_file_name, "/tmp/{}.yaml".format(secret_name), secret_name, namespace)
                     
                     elif type_of_k8s_secret == "env":
