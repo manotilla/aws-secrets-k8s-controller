@@ -10,24 +10,17 @@ class AWSSecret(object):
         return data["Parameter"]["Value"]
 
     def convert(self, parameter_prefix, secret_name, splitter):
-        
         file_name = "/tmp/"+secret_name+".yaml"
-        file_ptr = open(file_name, "a+")
-
-        paginator = self.ssm_client.get_paginator('describe_parameters')
-
-        recursive_ssm = paginator.paginate(
-            ParameterFilters=[
-                dict(Key="Path", Option="Recursive", Values=[parameter_prefix])
-            ]
-        )
-        for rs in recursive_ssm:
-            for parameter in rs['Parameters']:
-                value = self._single_parameter(parameter["Name"])
-                key = parameter["Name"].split(splitter)
-                file_ptr.write("{}: {}\n".format(key[len(key)-1], value))
-        
-        file_ptr.close()
-
+        with open(file_name, "a+") as file_ptr:
+            paginator = self.ssm_client.get_paginator('describe_parameters')
+            recursive_ssm = paginator.paginate(
+                ParameterFilters=[
+                    dict(Key="Path", Option="Recursive", Values=[parameter_prefix])
+                ]
+            )
+            for rs in recursive_ssm:
+                for parameter in rs['Parameters']:
+                    value = self._single_parameter(parameter["Name"])
+                    key = parameter["Name"].split(splitter)
+                    file_ptr.write("{}: {}\n".format(key[len(key)-1], value))
         return file_name
-        
