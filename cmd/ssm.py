@@ -30,8 +30,4 @@ class AWSSecret(object):
         file_ptr.close()
 
         return file_name
-
-'''
-obj = AWSSecret()
-obj.insert_tmp_file("/dev/", "/")           
-'''     
+        
