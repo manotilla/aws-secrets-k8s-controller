@@ -42,6 +42,6 @@ If you are working with aws located clusters you should give access to nodes for
 
 ## TODO
 
-1-) Immutable Secrets
-2-) AWS AccessKeys,SecretKeys to run controller on other cloud providers.
- 
+* Immutable Secrets
+* AWS AccessKeys,SecretKeys to run controller on other cloud providers.
+
