@@ -1,5 +1,6 @@
 # CloudSecret Controller
-<img src="https://travis-ci.org/WoodProgrammer/aws-secrets-k8s-controller.svg?branch=master"></img>
+[![Build Status](https://travis-ci.org/WoodProgrammer/aws-secrets-k8s-controller.svg?branch=master)](https://travis-ci.org/WoodProgrammer/aws-secrets-k8s-controller)
+
 ```
 AWS SSM Controller helps to us mirror the parameter store components to Kubernetes Secrets.You can easily get your secrets and create your kubernetes secrets as a file or environment variables.
 ```
